@@ -40,7 +40,7 @@ jobs:
               libkrb5-dev gss-ntlmssp-dev libgss-dev libfuse-dev \
               libfuse3-dev librpcsecgss-dev libnfsidmap-dev libnfs-dev
 
-          curl -sL "${GFS_DOWNLOAD}" > /build/glusterfs.tar.gz
+          curl -sL "${GFS_DOWNLOAD}" > glusterfs.tar.gz
           tar -xvzf glusterfs.tar.gz --strip-components=1
           rm glusterfs.tar.gz
           ./autogen.sh
