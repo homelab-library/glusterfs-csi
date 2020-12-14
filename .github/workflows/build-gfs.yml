@@ -1,0 +1,36 @@
+# name: Build GlusterFS Packages
+
+# on:
+#   push:
+#     branches: [master]
+
+# jobs:
+#   glusterfs:
+#     name: Custom GlusterFS Package
+#     runs-on: ubuntu-20.04
+#     # container: buildpack-deps:buster
+#     steps:
+#       - name: Build GlusterFS Package
+#         env:
+#           DEBIAN_FRONTEND: 'noninteractive'
+#           GFS_DOWNLOAD: 'https://github.com/gluster/glusterfs/archive/v8.3.tar.gz'
+#         run: |-
+#           apt-get update
+#           apt-get install -y make automake autoconf libtool flex bison \
+#               pkg-config libssl-dev libxml2-dev python-dev libaio-dev \
+#               libibverbs-dev librdmacm-dev libreadline-dev liblvm2-dev \
+#               libglib2.0-dev liburcu-dev libcmocka-dev libsqlite3-dev \
+#               libacl1-dev ca-certificates curl libgssglue-dev libssl-dev \
+#               libnfs-dev doxygen cmake gcc git cmake \
+#               libkrb5-dev gss-ntlmssp-dev libgss-dev libfuse-dev \
+#               libfuse3-dev librpcsecgss-dev libnfsidmap-dev libnfs-dev
+
+#           curl -sL "${GFS_DOWNLOAD}" > glusterfs.tar.gz
+#           tar -xvzf glusterfs.tar.gz --strip-components=1
+#           rm glusterfs.tar.gz
+#           ./autogen.sh
+#           ./configure 
+#           make
+#           mkdir -p /dist
+#           DESTDIR=/dist make install
+#           tar -cvz -C /dist . -f $PWD/glusterfs.tar.gz
