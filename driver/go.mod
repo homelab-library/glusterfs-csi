@@ -1,4 +1,4 @@
-module gluster
+module gluster-csi
 
 go 1.15
 

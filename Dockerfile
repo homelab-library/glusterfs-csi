@@ -1,4 +1,4 @@
-FROM golang as csi-builder
+FROM golang:1.15 as csi-builder
 RUN mkdir -p /go/src/gluster/
 WORKDIR /go/src/gluster/
 ADD ["driver/go.mod", "driver/go.sum", "./"]
@@ -26,6 +26,8 @@ RUN cd gfs && ./autogen.sh && \
     mkdir -p /dist && ./configure && \
     make && \
     DESTDIR=/dist make install
+
+RUN mv /dist/var/run /dist/run
 
 FROM debian:buster-slim
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
