@@ -40,6 +40,6 @@ jobs:
 
           docker run -u $UID:$UID \
             -v $PWD/out:/out gfsbuilder \
-              cp /dist/ /out/
+              cp -r /dist/ /out/
 
           tar -cJ -C dist/ gluster-csi -f $PWD/gluster-csi.tar.xz
