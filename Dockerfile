@@ -9,10 +9,10 @@ RUN TEMPARCH="${TARGETPLATFORM#*\/}" && \
 RUN curl -sL "https://github.com/homelab-library/glusterfs-csi/releases/download/csi-${CSI_VERSION}/gluster-csi-$(cat /arch).tar.xz" > /csi.tar.xz
 RUN curl -sL "https://github.com/homelab-library/glusterfs-csi/releases/download/gfs-${GFS_VERSION}/glusterfs-$(cat /arch).tar.xz" > /gfs.tar.xz
 
-RUN mkdir -p /dist/usr/bin
+RUN mkdir -p /dist/usr/bin /dist/usr/lib
 RUN tar -xvJ -C /dist/usr/bin -f /csi.tar.xz
 RUN tar -xvJ -C / -f /gfs.tar.xz
-RUN cp /dist/usr/local/lib/* /dust/usr/lib/ || true
+RUN cp /dist/usr/local/lib/* /dist/usr/lib/ || true
 
 FROM debian:buster-slim
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
