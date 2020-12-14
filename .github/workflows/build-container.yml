@@ -1,34 +1,60 @@
-# name: Build Container
+name: Build Container
 
-# on:
-#   push:
-#     branches: [master]
+on:
+  push:
+    branches: [master]
 
-# jobs:
-#   docker_images:
-#     name: Create GlusterFS Container
-#     runs-on: ubuntu-20.04
-#     steps:
-#       - name: Check out the repo
-#         uses: actions/checkout@v2
+jobs: {}
+  # docker_images:
+  #   name: Create GlusterFS Container
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - name: Check out the repo
+  #       uses: actions/checkout@v2
 
-#       - name: Set up Docker Buildx
-#         id: buildx
-#         uses: crazy-max/ghaction-docker-buildx@v3
-#         with:
-#           buildx-version: latest
-#           qemu-version: latest
+  #     - name: Set up Docker Buildx
+  #       id: buildx
+  #       uses: crazy-max/ghaction-docker-buildx@v3
+  #       with:
+  #         buildx-vers  # docker_images:
+  #   name: Create GlusterFS Container
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - name: Check out the repo
+  #       uses: actions/checkout@v2
 
-#       - name: Docker Login
-#         env:
-#           DOCKER_USERNAME: ${{ secrets.GHCR_USER }}
-#           DOCKER_PASSWORD: ${{ secrets.GHCR_TOKEN }}
-#         run: |-
-#           docker login ghcr.io -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+  #     - name: Set up Docker Buildx
+  #       id: buildx
+  #       uses: crazy-max/ghaction-docker-buildx@v3
+  #       with:
+  #         buildx-version: latest
+  #         qemu-version: latest
 
-#       - name: Run Crossbuild
-#         run: |-
-#           docker buildx build \
-#             --platform linux/amd64,linux/arm/v7,linux/arm64 \
-#             -t "ghcr.io/homelab-library/glusterfs-csi:latest" \
-#             --push .
+  #     - name: Docker Login
+  #       env:
+  #         DOCKER_USERNAME: ${{ secrets.GHCR_USER }}
+  #         DOCKER_PASSWORD: ${{ secrets.GHCR_TOKEN }}
+  #       run: |-
+  #         docker login ghcr.io -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+
+  #     - name: Run Crossbuild
+  #       run: |-
+  #         docker buildx build \
+  #           --platform linux/amd64,linux/arm/v7,linux/arm64 \
+  #           -t "ghcr.io/homelab-library/glusterfs-csi:latest" \
+  #           --push .ion: latest
+  #         qemu-version: latest
+
+  #     - name: Docker Login
+  #       env:
+  #         DOCKER_USERNAME: ${{ secrets.GHCR_USER }}
+  #         DOCKER_PASSWORD: ${{ secrets.GHCR_TOKEN }}
+  #       run: |-
+  #         docker login ghcr.io -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+
+  #     - name: Run Crossbuild
+  #       run: |-
+  #         docker buildx build \
+  #           --platform linux/amd64,linux/arm/v7,linux/arm64 \
+  #           -t "ghcr.io/homelab-library/glusterfs-csi:latest" \
+  #           --push .
