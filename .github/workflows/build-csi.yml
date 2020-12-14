@@ -2,19 +2,44 @@ name: Build CSI Binary
 
 on:
   push:
-    branches: [master]
+    tags: ['csi-v**']
 
 jobs:
+  create_release:
+    name: Create Github Release
+    runs-on: 'ubuntu-20.04'
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: ''
+          draft: false
+          prerelease: false
+
   gluster-csi:
     name: Create GlusterFS CSI Binary
+    needs: ['create_release']
     runs-on: ubuntu-20.04
 
     strategy:
       matrix:
         include:
           - platform: linux/amd64
+            tag: amd64
           - platform: linux/arm/v7
+            tag: arm
           - platform: linux/arm64
+            tag: arm64
 
     steps:
       - name: Set up QEMU
@@ -39,4 +64,15 @@ jobs:
             -v $PWD/dist:/dist csibuilder \
               cp /go/src/gluster/gluster-csi /dist/
 
-          tar -cvz -C dist/ gluster-csi -f $PWD/gluster-csi.tar.gz
+          tar -cJ -C dist/ gluster-csi -f $PWD/gluster-csi.tar.xz
+
+      - name: Upload Release Assets
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./gluster-csi.tar.xz
+          asset_name: gluster-csi-${{ matrix.tag }}.tar.xz
+          asset_content_type: application/x-gtar
