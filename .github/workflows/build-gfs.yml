@@ -29,6 +29,7 @@ jobs:
 
   glusterfs:
     name: Custom GlusterFS Package
+    needs: ['create_release']
     runs-on: ubuntu-20.04
 
     strategy:
