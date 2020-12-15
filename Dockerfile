@@ -2,7 +2,7 @@ FROM buildpack-deps:buster as builder
 RUN mkdir -p /dist
 
 ARG TARGETPLATFORM
-ARG CSI_VERSION="v0.0.1-alpha"
+ARG CSI_VERSION="v0.1.0"
 ARG GFS_VERSION="v8.3r2"
 RUN TEMPARCH="${TARGETPLATFORM#*\/}" && \
     echo "${TEMPARCH%\/*}" > /arch
