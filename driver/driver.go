@@ -19,11 +19,11 @@ type driver struct {
 }
 
 const (
-	driverName = "csi-glusterfsplugin"
+	driverName = "gluster-csi"
 )
 
 var (
-	version = "0.0.1-alpha"
+	version = "0.1.0"
 )
 
 func NewDriver(nodeID, endpoint string) *driver {
@@ -51,7 +51,7 @@ func (d *driver) Run() {
 	s := csicommon.NewNonBlockingGRPCServer()
 	s.Start(d.endpoint,
 		csicommon.NewDefaultIdentityServer(d.csiDriver),
-		nil,
+		csicommon.NewDefaultControllerServer(d.csiDriver),
 		NewNodeServer(d))
 	s.Wait()
 }
