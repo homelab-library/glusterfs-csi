@@ -39,6 +39,8 @@ spec:
     spec:
       serviceAccount: glusterfs-csi
       hostNetwork: true
+      tolerations:
+        - operator: Exists
       containers:
         - name: csi-node-driver-registrar
           image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.0.1
